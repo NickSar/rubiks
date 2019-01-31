@@ -1,0 +1,140 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2018.3.25)  30 OCT 2018 15:17
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-
+2.3.2.fix/docs/usersguide.tex
+
+(/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-2
+.3.2.fix/docs/usersguide.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-2
+.3.2.fix/docs/.gradle/latex-temp/usersguide.aux)
+\openout1 = `usersguide.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 7.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 13.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 15.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 41.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
+ [1
+
+{/usr/share/texlive/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 78.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 78.
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[][]$\OT1/pcr/m/n/8 http : / / download . oracle . com / javase / 1 . 5 . 0 / d
+ocs / api / java / util /
+ []
+
+
+Overfull \hbox (1.24786pt too wide) in paragraph at lines 83--86
+\OT1/ptm/m/n/10 tory, on the class path, and at a lo-ca-tion spec-i-fied with t
+he \OT1/pcr/m/n/10 ibis.properties.file
+ []
+
+
+Overfull \hbox (17.05902pt too wide) in paragraph at lines 114--122
+\OT1/ptm/m/n/10 ing com-mand line op-tion: \OT1/pcr/m/n/10 -Dlog4j.configuratio
+n=file:log4j.properties
+ []
+
+[2] [3]
+Overfull \hbox (38.39957pt too wide) in paragraph at lines 263--263
+[]    \OT1/pcr/m/n/9 $IPL_HOME/lib/ipl-2.3.jar:$IPL_HOME/examples/lib/ipl-examp
+les.jar \[] 
+ []
+
+[4]
+Overfull \hbox (43.79956pt too wide) in paragraph at lines 307--307
+[]\OT1/pcr/m/n/9 C:\DOCUME~1\Temp> set CLASSPATH=%IPL_HOME%\examples\lib\ipl-ex
+amples.jar[] 
+ []
+
+
+Overfull \hbox (81.59952pt too wide) in paragraph at lines 332--332
+[]    \OT1/pcr/m/n/9 -cp "%IPL_HOME%"\lib\ipl-2.3.jar;"%IPL_HOME%"\examples\lib
+\ipl-examples.jar[] 
+ []
+
+[5]
+(/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-2
+.3.2.fix/docs/.gradle/latex-temp/usersguide.aux) ) 
+Here is how much of TeX's memory you used:
+ 406 strings out of 495063
+ 5860 string characters out of 3182201
+ 52094 words of memory out of 3000000
+ 3636 multiletter control sequences out of 15000+200000
+ 22303 words of font info for 48 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 24i,8n,19p,255b,239s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texlive/texmf-dis
+t/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/urw/co
+urier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /home/rutger/projects/classes/ppp/ppp-git/assignments/java/ru
+biks/rubiks/ipl-2.3.2.fix/docs/.gradle/latex-temp/usersguide.pdf (5 pages, 6925
+6 bytes).
+PDF statistics:
+ 37 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,352 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2018.3.25)  30 OCT 2018 15:17
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-
+2.3.2.fix/docs/progman.tex
+
+(/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-2
+.3.2.fix/docs/progman.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(/home/rutger/texmf/tex/latex/local/floatpag.sty
+Package: floatpag 2012/05/29 v1.1 Different pagestyles on float pages
+Package: floatpag 1999/04/29 FLOAT PAGESTYLE
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count88
+\lst@gtempboxa=\box26
+\lst@token=\toks15
+\lst@length=\count89
+\lst@currlwidth=\dimen105
+\lst@column=\count90
+\lst@pos=\count91
+\lst@lostspace=\dimen106
+\lst@width=\dimen107
+\lst@newlines=\count92
+\lst@lineno=\count93
+\lst@maxwidth=\dimen108
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count94
+\lst@skipnumbers=\count95
+\lst@framebox=\box27
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty
+Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-2
+.3.2.fix/docs/.gradle/latex-temp/progman.aux)
+\openout1 = `progman.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 14.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count96
+\scratchdimen=\dimen109
+\scratchbox=\box28
+\nofMPsegments=\count97
+\nofMParguments=\count98
+\everyMPshowfont=\toks16
+\MPscratchCnt=\count99
+\MPscratchDim=\dimen110
+\MPnumerator=\count100
+\makeMPintoPDFobject=\count101
+\everyMPtoPDFconversion=\toks17
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@lstlisting=\count102
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 20.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 22.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 29.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 30.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 30.
+Package epstopdf Info: Source file: <images/ibis-design.eps>
+(epstopdf)                    date: 2018-10-24 12:48:55
+(epstopdf)                    size: 261448 bytes
+(epstopdf)             Output file: <images/ibis-design-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-10-30 15:17:09
+(epstopdf)                    size: 35752 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/ibis-design-eps-con
+verted-to.pdf images/ibis-design.eps>
+(epstopdf)             \includegraphics on input line 49.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/ibis-design-eps-converted-to.pdf, id=1, 614.295pt x 794.97pt>
+File: images/ibis-design-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/ibis-design-eps-converted-to.pdf>
+Package pdftex.def Info: images/ibis-design-eps-converted-to.pdf used on input 
+line 49.
+(pdftex.def)             Requested size: 310.4979pt x 401.82666pt.
+ [1
+
+{/usr/share/texlive/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 84.
+Package epstopdf Info: Source file: <images/communication_patterns.eps>
+(epstopdf)                    date: 2018-10-24 12:48:55
+(epstopdf)                    size: 165443 bytes
+(epstopdf)             Output file: <images/communication_patterns-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2018-10-30 15:17:10
+(epstopdf)                    size: 6201 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/communication_patte
+rns-eps-converted-to.pdf images/communication_patterns.eps>
+(epstopdf)             \includegraphics on input line 89.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/communication_patterns-eps-converted-to.pdf, id=11, 614.295pt x 794.97p
+t>
+File: images/communication_patterns-eps-converted-to.pdf Graphic file (type pdf
+)
+ <use images/communication_patterns-eps-converted-to.pdf>
+Package pdftex.def Info: images/communication_patterns-eps-converted-to.pdf use
+d on input line 89.
+(pdftex.def)             Requested size: 310.4979pt x 401.82666pt.
+Package epstopdf Info: Source file: <images/port_types.eps>
+(epstopdf)                    date: 2018-10-24 12:48:55
+(epstopdf)                    size: 77620 bytes
+(epstopdf)             Output file: <images/port_types-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-10-30 15:17:10
+(epstopdf)                    size: 6866 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/port_types-eps-conv
+erted-to.pdf images/port_types.eps>
+(epstopdf)             \includegraphics on input line 106.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/port_types-eps-converted-to.pdf, id=12, 614.295pt x 794.97pt>
+File: images/port_types-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/port_types-eps-converted-to.pdf>
+Package pdftex.def Info: images/port_types-eps-converted-to.pdf used on input l
+ine 106.
+(pdftex.def)             Requested size: 172.5pt x 223.23299pt.
+
+Overfull \hbox (2.69763pt too wide) in paragraph at lines 150--158
+\OT1/ptm/m/n/10 To be able send an Ob-ject, this ob-ject must im-ple-ment the \
+OT1/pcr/m/n/10 java.io.Serializable
+ []
+
+[2] [3]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 227.
+
+Overfull \hbox (9.95622pt too wide) in paragraph at lines 282--287
+\OT1/ptm/m/n/10 This is a list of ca-pa-bil-i-ties for port types. These ca-pa-
+bil-i-ties are de-fined in the \OT1/pcr/m/n/10 PortType
+ []
+
+[4]
+Overfull \hbox (2.72705pt too wide) in paragraph at lines 298--300
+[]\OT1/ptm/m/n/10 Many-to-one com-mu-ni-ca-tion is sup-ported (in Ibis
+ []
+
+[5]
+Overfull \hbox (6.74002pt too wide) in paragraph at lines 371--376
+\OT1/pcr/m/n/10 java.io.ObjectOutputStream \OT1/ptm/m/n/10 and \OT1/pcr/m/n/10 
+java.io.ObjectInputStream\OT1/ptm/m/n/10 .
+ []
+
+[6] (./tutorial.tex
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 9.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 11.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 11.
+
+
+LaTeX Warning: Float too large for page by 138.81488pt on input line 81.
+
+[7] [8]
+LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 206.
+
+Overfull \hbox (1.1875pt too wide) in paragraph at lines 237--244
+[]\OT1/ptm/m/n/10 On line 1, the first change is vis-i-ble. The ap-pli-ca-tion 
+ex-tends the \OT1/pcr/m/n/10 MessageUpcall
+ []
+
+
+LaTeX Warning: Float too large for page by 62.81488pt on input line 341.
+
+[9]) [10] [11] [12 <./images/ibis-design-eps-converted-to.pdf>] [13 <./images/c
+ommunication_patterns-eps-converted-to.pdf>] [14 <./images/port_types-eps-conve
+rted-to.pdf>] [15] [16] [17]
+(/home/rutger/projects/classes/ppp/ppp-git/assignments/java/rubiks/rubiks/ipl-2
+.3.2.fix/docs/.gradle/latex-temp/progman.aux) ) 
+Here is how much of TeX's memory you used:
+ 3162 strings out of 495063
+ 46935 string characters out of 3182201
+ 187991 words of memory out of 3000000
+ 6285 multiletter control sequences out of 15000+200000
+ 29409 words of font info for 55 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 38i,8n,42p,329b,1338s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texlive/texmf-dist/f
+onts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr
+8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /home/rutger/projects/classes/ppp/ppp-git/assignments/java/ru
+biks/rubiks/ipl-2.3.2.fix/docs/.gradle/latex-temp/progman.pdf (17 pages, 148419
+ bytes).
+PDF statistics:
+ 89 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+

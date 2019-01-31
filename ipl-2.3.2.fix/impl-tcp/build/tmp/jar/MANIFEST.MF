@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Ibis-NickName: tcp
+Ibis-Implementation-Version: Tcp2.3.2
+Ibis-IPL-Cersion: 2.3.2
+Ibis-Starter-Class: ibis.ipl.impl.tcp.TcpIbisStarter
+

@@ -1,0 +1,10 @@
+ibis.ipl.benchmarks.LogP
+ibis.ipl.benchmarks.concurrentSenders
+ibis.ipl.benchmarks.connect
+ibis.ipl.benchmarks.javaGrande02
+ibis.ipl.benchmarks.masterWorker
+ibis.ipl.benchmarks.pingPong
+ibis.ipl.benchmarks.randomsteal
+ibis.ipl.benchmarks.registry
+ibis.ipl.benchmarks.rpc
+ibis.ipl.benchmarks.throughput
