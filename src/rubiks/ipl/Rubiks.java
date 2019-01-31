@@ -1,15 +1,6 @@
 package rubiks.ipl;
 
-import ibis.ipl.Ibis;
-import ibis.ipl.IbisCapabilities;
-import ibis.ipl.IbisFactory;
-import ibis.ipl.IbisIdentifier;
-import ibis.ipl.MessageUpcall;
-import ibis.ipl.PortType;
-import ibis.ipl.ReadMessage;
-import ibis.ipl.ReceivePort;
-import ibis.ipl.SendPort;
-import ibis.ipl.WriteMessage;
+import ibis.ipl.*;
 
 import java.io.IOException;
 
@@ -20,51 +11,41 @@ import java.io.IOException;
  * 
  */
 
- 
-
-public class Rubiks implements MessageUpcall {
-
+public class Rubiks {
 
     IbisCapabilities ibisCapabilities = new IbisCapabilities(
-            IbisCapabilities.ELECTIONS_STRICT);
+                        IbisCapabilities.ELECTIONS_STRICT,
+                        IbisCapabilities.CLOSED_WORLD,
+                        IbisCapabilities.TERMINATION);
+    
+    PortType upCallPort = new PortType(PortType.COMMUNICATION_RELIABLE,
+                        PortType.SERIALIZATION_OBJECT_IBIS, PortType.RECEIVE_AUTO_UPCALLS,
+                        PortType.CONNECTION_MANY_TO_ONE,
+                        PortType.CONNECTION_UPCALLS);
+    
+    public static Ibis ibis;
+    private final IbisIdentifier masterId;
+    
+    Rubiks() throws IbisCreationFailedException, IOException {
 
-    /**
-     * Function called by Ibis to give us a newly arrived message
-     * 
-     * @param message
-     *            the message
-     * @throws IOException
-     *             when the message cannot be read
-     */
+        // Create Ibis
+        ibis = IbisFactory.createIbis(ibisCapabilities, null, upCallPort);
 
-    private void client(Ibis myIbis, IbisIdentifier server) throws IOException {
-                // Create a send port for sending requests and connect.
-        SendPort sender = myIbis.createSendPort(portType);
-        sender.connect(server, "server");
+        // Postpone the elections until all ibises have joined
+        ibis.registry().waitUntilPoolClosed();
 
-        // Send the message.
-        WriteMessage w = sender.newMessage();
-        w.writeString("Hi there");
-        w.finish();
-
-        // Close ports.
-        sender.close();
+        // Elect the Master
+        masterId = ibis.registry().elect("Server");
     }
 
-    private void run(String[] arguments) throws Exception {
+    private void run(String[] args) throws Exception {
         
-        // Create an ibis instance.
-        Ibis ibis = IbisFactory.createIbis(ibisCapabilities, null, portType);
-        
-        // Elect the server.
-        IbisIdentifier server = ibis.registry().elect("server");
+        IbisIdentifier myId = ibis.identifier();
 
-        // Run depending on my role
-        if (server.equals(ibis.identifier())) {
-            // server(ibis, arguments);
-            new Server(arguments, ibis);
+        if (masterId.equals(myId)) {
+            new Master(masterId).run(args);
         } else {
-            client(ibis, server);
+            new Client(masterId).run();
         }
     }
     public static void main(String args[]){
