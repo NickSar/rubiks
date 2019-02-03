@@ -4,8 +4,6 @@ SERVER_ADDRESS="fs0.das4.cs.vu.nl"
 IPL_ARGUMENTS="-Dibis.server.address=$SERVER_ADDRESS"
 module load prun
 
-cd /ppp2019/rubiks
-
 for proc in 2
   do
     for cores in 1
