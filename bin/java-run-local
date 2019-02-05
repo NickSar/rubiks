@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SIZE=${2:-3}
+TWISTS=${4:-11}
+SEED=${6:-0}
+
+for i in {1..4}
+do
+    bin/java-run -Dibis.server.address="192.168.178.30" -Dibis.pool.name="test" -Dibis.pool.size=4 rubiks.ipl.Rubiks --size $SIZE --twists $TWISTS --seed $SEED &
+done

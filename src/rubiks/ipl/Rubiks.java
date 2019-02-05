@@ -13,19 +13,25 @@ import java.io.IOException;
 
 public class Rubiks {
 
-    IbisCapabilities ibisCapabilities = new IbisCapabilities(
+    public final static IbisCapabilities ibisCapabilities = new IbisCapabilities(
                         IbisCapabilities.ELECTIONS_STRICT,
                         IbisCapabilities.CLOSED_WORLD,
                         IbisCapabilities.TERMINATION);
     
-    PortType upCallPort = new PortType(PortType.COMMUNICATION_RELIABLE,
+    public final static PortType upCallPort = new PortType(PortType.COMMUNICATION_RELIABLE,
                         PortType.SERIALIZATION_OBJECT_IBIS, PortType.RECEIVE_AUTO_UPCALLS,
                         PortType.CONNECTION_MANY_TO_ONE,
                         PortType.CONNECTION_UPCALLS);
     
-    public static Ibis ibis;
+    public final Ibis ibis;
     private final IbisIdentifier masterId;
     
+    public static final int SG_WORKER_INITIALIZED = -1;
+    public final static String CMD_EXECUTE = "execute";
+    public final static String CMD_CLOSE = "close";
+    public final static String WK_READY = "ready";
+    public final static String WK_BUSY = "busy";
+
     Rubiks() throws IbisCreationFailedException, IOException {
 
         // Create Ibis
@@ -43,9 +49,9 @@ public class Rubiks {
         IbisIdentifier myId = ibis.identifier();
 
         if (masterId.equals(myId)) {
-            new Master(masterId).run(args);
+            new Master(this).run(args);
         } else {
-            new Client(masterId).run();
+            new Client(this).run(masterId);
         }
     }
     public static void main(String args[]){

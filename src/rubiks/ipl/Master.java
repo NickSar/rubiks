@@ -17,27 +17,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Master implements MessageUpcall{
 
-    PortType upCallPort = new PortType(PortType.COMMUNICATION_RELIABLE,
-            PortType.SERIALIZATION_OBJECT_IBIS, PortType.RECEIVE_AUTO_UPCALLS,
-            PortType.CONNECTION_MANY_TO_ONE,
-            PortType.CONNECTION_UPCALLS);
-
     private CubeCache cache;
     private Cube firstCube;
     private IbisIdentifier myIbisId;
+    // public static Ibis ibis;
 
     private static ArrayDeque<Cube> childrenQueue;
     private static ArrayDeque<Worker> workerQueue;
     private static AtomicInteger totalSolutions;
     private static AtomicInteger busyWorkers;
+    private final Rubiks parent;
 
-    Master(IbisIdentifier myId) {
+    Master(Rubiks parent) {
         cache = null;
         firstCube = null;
         childrenQueue = null;
         totalSolutions = new AtomicInteger(0);
         busyWorkers = new AtomicInteger(0);
-        myIbisId = myId;
+        myIbisId = parent.ibis.identifier();
+        this.parent = parent;
     }   
 
     public void upcall(ReadMessage message) throws IOException {
@@ -49,14 +47,14 @@ public class Master implements MessageUpcall{
 
         synchronized (workerQueue) {
             /* Distinguish two cases:
-            *  1. if -1 is received this is translated to "i am ready" signal
+            *  1. if SG_WORKER_INITIALIZED is received this is translated to "i am ready" signal
             *     and a new worker is added to the workerQueue
             *  2. Otherwise the integer received is considered to be solutions
             *     and is added to the totalSolutions
             */
-            System.out.println("I am Master and I received " + s + " from " + workerId);
-            if (s == -1) {
-                SendPort sp = Rubiks.ibis.createSendPort(upCallPort);
+            // System.out.println("I am Master and I received " + s + " from " + workerId);
+            if (s == Rubiks.SG_WORKER_INITIALIZED) {
+                SendPort sp = parent.ibis.createSendPort(Rubiks.upCallPort);
                 sp.connect(workerId, "worker");
                 currentWorker = new Worker(workerId, "ready", sp);
                 workerQueue.addFirst(currentWorker);
@@ -75,13 +73,12 @@ public class Master implements MessageUpcall{
         }
     }
     /* Wrapper function to send a Cube (possibly), and a command
-    * "execute" or "close" to the worker
+    * CMD_EXECUTE or CMD_CLOSE to the worker
     */
     public static void sendCubeToWorker(Cube cb, SendPort sPort) throws ConnectionFailedException, IOException {
 
         WriteMessage w = sPort.newMessage();
-
-        w.writeString("execute");
+        w.writeString(Rubiks.CMD_EXECUTE);
         w.writeObject(cb);
         w.finish();
     }
@@ -92,22 +89,17 @@ public class Master implements MessageUpcall{
 
         Cube cb;
         int sols;
-        int cubesPerWorker;
         synchronized(childrenQueue){
             synchronized(workerQueue){
-
                 for (Worker currentWorker : workerQueue) {
-
-                    if (currentWorker.getStatus().equals("ready")){
-
-                        cubesPerWorker = currentWorker.getCubesProecessed();
-                        currentWorker.setCubesProecessed(++cubesPerWorker);
+                    if (currentWorker.getStatus().equals(Rubiks.WK_READY)){
                         cb = childrenQueue.pollLast();
-                        sendCubeToWorker(cb, currentWorker.getSendPort());
-                        busyWorkers.incrementAndGet();
-                        currentWorker.setStatus("busy");
+                        if (cb != null) {
+                            sendCubeToWorker(cb, currentWorker.getSendPort());
+                            busyWorkers.incrementAndGet();
+                            currentWorker.setStatus(Rubiks.WK_BUSY);
+                        }
                         return;
-
                     }
                 }
             }
@@ -115,26 +107,28 @@ public class Master implements MessageUpcall{
     }
 
     private  int solveAtBound (Cube cube, CubeCache cache) throws ConnectionFailedException, IOException {
-
+        
+        /** 
+         *  For a given bound, the childrenqueue must be rest.
+         */
         childrenQueue.clear();
 
         if(cube.isSolved()){
-            totalSolutions.incrementAndGet();
-            return totalSolutions.get();
+            return totalSolutions.incrementAndGet();
         }
 
         if(cube.getTwists() >= cube.getBound()){
             return 0;
         }
 
-        /*   Generating the children of the initial cube and add
-         *   them to the global queue.
+        /*   Generate children of the initial cube and add them to the global queue.
          */
         Cube[] children = cube.generateChildren(cache);
         int bound = cube.getBound();
 
         /* Add children cubes to the childrenQueue
-        * Only three generations after the initial cube are added to the queue */
+        *  Only three generations after the initial cube are added to the queue 
+        */
         for (Cube child : children){
             Cube[] grandChildren = child.generateChildren(cache);
             for (Cube grandChild : grandChildren){
@@ -148,7 +142,8 @@ public class Master implements MessageUpcall{
 
         /* A new thread is used to start solving cubes from the childrenQueue
         * synchronization over the childrenQueue is crucial at this point because
-        * at the same time another threads pulls cubes and sends them to Workers. */
+        * at the same time another threads pulls cubes and sends them to Workers. 
+        */
         Thread t1 = new Thread(new Runnable()
         {
             public void run()
@@ -156,7 +151,6 @@ public class Master implements MessageUpcall{
               synchronized(childrenQueue){
                 while(!childrenQueue.isEmpty())
                 {
-
                     Cube cb = childrenQueue.pollLast();
                     int s = solutions(cb,null);
                     totalSolutions.addAndGet(s);
@@ -165,6 +159,7 @@ public class Master implements MessageUpcall{
             }
         });
         t1.start();
+
         /*  Master Thread iterates over the global Queue and sends the data
          *  until this queue to empty.
          */
@@ -186,7 +181,7 @@ public class Master implements MessageUpcall{
             for( Worker wk : workerQueue) {
                 if( !wk.getId().equals(myIbisId) ) {
                     WriteMessage w = wk.getSendPort().newMessage();
-                    w.writeString("close");
+                    w.writeString(Rubiks.CMD_CLOSE);
                     w.finish();
                     wk.getSendPort().close();
                 }
@@ -203,10 +198,10 @@ public class Master implements MessageUpcall{
 
     private void solve(Cube cube) throws IOException, ConnectionFailedException {
 
-        // cache used for cube objects. Doing new cube() for every move
+        // Cache used for cube objects. Doing new cube() for every move
         // overloads the garbage collector
-
         CubeCache cache = new CubeCache(cube.getSize());
+
         int bound = 0;
         int result = 0;
 
@@ -247,9 +242,6 @@ public class Master implements MessageUpcall{
         if (cube.getTwists() >= cube.getBound()) {
             return 0;
         }
-
-        // generate all possible cubes from this one
-        // by moving the player in every direction
 
         if(cache==null) {
             cache = new CubeCache(cube.getSize());
@@ -303,9 +295,6 @@ public class Master implements MessageUpcall{
         int seed = 0;
         String fileName = null;
 
-        // number of threads used to solve puzzle
-        // (not used in sequential version)
-
         for (int i = 0; i < arguments.length; i++) {
             if (arguments[i].equalsIgnoreCase("--size")) {
                 i++;
@@ -351,20 +340,19 @@ public class Master implements MessageUpcall{
 
     public void run(String[] args) throws Exception {
         
-        initializeCube(args);
-        
         childrenQueue = new ArrayDeque<Cube>();
         workerQueue   = new ArrayDeque<Worker>();
-
-        // Create the receive port to handle the messages 
-        ReceivePort receiver = Rubiks.ibis.createReceivePort(upCallPort,"server", this);
+        initializeCube(args);
         
+        // Create the receive port to handle the messages 
+        ReceivePort receiver = parent.ibis.createReceivePort(Rubiks.upCallPort, "master", this);
+
         // Enable connections
         receiver.enableConnections();
 
         // Enable upcalls
         receiver.enableMessageUpcalls();
-
+        
         // solve
         long start = System.currentTimeMillis();
         solve(firstCube);
@@ -378,5 +366,4 @@ public class Master implements MessageUpcall{
         
         receiver.close();
     }
-
 }

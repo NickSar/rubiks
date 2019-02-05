@@ -16,13 +16,11 @@ public class Worker {
     private final IbisIdentifier id;
     private String status;
     private final SendPort sport;
-    private int cubesProecessed;
 
     Worker(IbisIdentifier id, String status, SendPort sp) {
         this.id = id;
         this.status = status;
         this.sport = sp;
-        cubesProecessed = 0;
     }
 
     public IbisIdentifier getId() {
@@ -39,13 +37,5 @@ public class Worker {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public int getCubesProecessed() {
-        return cubesProecessed;
-    }
-
-    public void setCubesProecessed(int bp) {
-        this.cubesProecessed = bp;
     }
 }

@@ -8,40 +8,21 @@ import java.util.ArrayDeque;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Client implements MessageUpcall {
-
-    /*  In this implementation we only use upcall ports
-     *  for the communication of the workers and the master.
-     */
-    PortType upCallPort = new PortType(PortType.COMMUNICATION_RELIABLE,
-            PortType.SERIALIZATION_OBJECT_IBIS, PortType.RECEIVE_AUTO_UPCALLS,
-            PortType.CONNECTION_MANY_TO_ONE,
-            PortType.CONNECTION_UPCALLS);
-
-    
+   
     private CubeCache cache;
     private SendPort sender;
     private ReceivePort receiver;
-    
+    public static Ibis ibis;
+    private final Rubiks parent;
+
     public static final boolean PRINT_SOLUTION = false;
 
-    public Client(IbisIdentifier masterIbisId) throws IOException{
-        
-        /*  Create a SendPort to communicate with Master
-         *  and connect.
-         */
-        System.out.println("I am ibis " + Rubiks.ibis.identifier() + " and I will initialize ports to master Id: " + masterIbisId);
-    
-        sender = Rubiks.ibis.createSendPort(upCallPort);
-        sender.connect(masterIbisId, "master");
-        System.out.println("I am ibis " + Rubiks.ibis.identifier() + " and I initialized ports");
-
-        /*  Create a receive port to receive messages from master.
-         */
-        receiver = Rubiks.ibis.createReceivePort(upCallPort, "worker", this);
+    public Client(Rubiks parent) throws IOException{
+        this.parent = parent;       
         cache = null;
     }
 
-     /*  Send an integer to Master. -1 upon start to signal availability
+     /*  Send an signal to Master. SG_WORKER_INITIALIZED upon start to signal availability
      *  the computed solutions otherwise.
      */
     private void sendInt(int x) throws IOException{
@@ -53,21 +34,23 @@ public class Client implements MessageUpcall {
     @Override
     public void upcall(ReadMessage rm) throws IOException, ClassNotFoundException {
 
-        /*  The upcall method. If Worker receives an "execute" command. solves the received
-         *  board and returns the result. If receives a close command frees the ports and
-         *  shutsdown.
+        /*  The upcall method. If Worker receives an CMD_EXECUTE command it will solve the received
+         *  cube and will return the result. If a CMD_CLOSE command is received then worker frees the ports and
+         *  shuts down.
          */
         int sols;
         Cube cb;
         String command = rm.readString();
         
-        System.out.println("I am ibis: " + Rubiks.ibis.identifier() + " and I received " + command);
-        if (command.equals("execute")){
+        if (command.equals(Rubiks.CMD_EXECUTE)){
             cb = (Cube) rm.readObject();
             rm.finish();
+            if (cache == null){
+                cache = new CubeCache(cb.getSize());
+            }
             sols = solutions(cb,cache);
             sendInt(sols);
-        } else if(command.equals("close")){
+        } else if(command.equals(Rubiks.CMD_CLOSE)){
             rm.finish();
             sender.close();
             receiver.close();
@@ -119,18 +102,24 @@ public class Client implements MessageUpcall {
     }
 
     
-    public void run() throws Exception {
-        // enable connections
+    public void run(IbisIdentifier masterIbisId) throws Exception {
+        
+        /*  Create a receive port to receive messages from master.
+            Pass ourselves as the message upcall handler
+         */
+        receiver = parent.ibis.createReceivePort(Rubiks.upCallPort, "worker", this);
         receiver.enableConnections();
-
-        // enable upcalls
         receiver.enableMessageUpcalls();
+        
+        /*  Create a SendPort to communicate with Master
+         *  and connect.
+         */
+        sender = parent.ibis.createSendPort(Rubiks.upCallPort);
+        sender.connect(masterIbisId, "master");
 
         // Send an initialization message
-        System.out.println("I am ibis " + Rubiks.ibis.identifier() + " and I will send a ready message");
-        sendInt(-1);
+        sendInt(Rubiks.SG_WORKER_INITIALIZED);
         
-
         // Make sure this thread doesn't finish prematurely
         synchronized (this) {
             this.wait();
