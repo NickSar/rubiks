@@ -41,7 +41,7 @@ public class Client implements MessageUpcall {
         int sols;
         Cube cb;
         String command = rm.readString();
-        
+        System.out.println("received: " + command);
         if (command.equals(Rubiks.CMD_EXECUTE)){
             cb = (Cube) rm.readObject();
             rm.finish();
