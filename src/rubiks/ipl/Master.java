@@ -148,14 +148,14 @@ public class Master implements MessageUpcall{
         {
             public void run()
             {
-              synchronized(childrenQueue){
                 while(!childrenQueue.isEmpty())
-                {
-                    Cube cb = childrenQueue.pollLast();
-                    int s = solutions(cb,null);
-                    totalSolutions.addAndGet(s);
+                    synchronized(childrenQueue){
+                    {
+                        Cube cb = childrenQueue.pollLast();
+                        int s = solutions(cb,null);
+                        totalSolutions.addAndGet(s);
+                    }
                 }
-              }
             }
         });
         t1.start();
@@ -163,8 +163,9 @@ public class Master implements MessageUpcall{
         /*  Master Thread iterates over the global Queue and sends the data
          *  until this queue to empty.
          */
-        synchronized(childrenQueue){
-            while(!childrenQueue.isEmpty()){
+        
+        while(!childrenQueue.isEmpty()){
+            synchronized(childrenQueue){
                 sendCube();
             }
         }
