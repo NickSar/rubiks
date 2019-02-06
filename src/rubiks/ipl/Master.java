@@ -90,20 +90,22 @@ public class Master implements MessageUpcall{
         Cube cb;
         int sols;
         synchronized(childrenQueue){
-            synchronized(workerQueue){
-                for (Worker currentWorker : workerQueue) {
-                    if (currentWorker.getStatus().equals(Rubiks.WK_READY)){
-                        cb = childrenQueue.pollLast();
-                        if (cb != null) {
-                            sendCubeToWorker(cb, currentWorker.getSendPort());
-                            busyWorkers.incrementAndGet();
-                            currentWorker.setStatus(Rubiks.WK_BUSY);
-                        }
-                        return;
+            cb = childrenQueue.pollLast();
+        }
+        synchronized(workerQueue){
+            for (Worker currentWorker : workerQueue) {
+                if (currentWorker.getStatus().equals(Rubiks.WK_READY)){
+                    
+                    if (cb != null) {
+                        sendCubeToWorker(cb, currentWorker.getSendPort());
+                        busyWorkers.incrementAndGet();
+                        currentWorker.setStatus(Rubiks.WK_BUSY);
                     }
+                    return;
                 }
             }
         }
+        
     }
 
     private  int solveAtBound (Cube cube, CubeCache cache) throws ConnectionFailedException, IOException {
@@ -146,17 +148,18 @@ public class Master implements MessageUpcall{
         */
         Thread t1 = new Thread(new Runnable()
         {
+            Cube cb;
             public void run()
             {
-                while(!childrenQueue.isEmpty())
+                while(!childrenQueue.isEmpty()){
                     synchronized(childrenQueue){
-                    {
-                        Cube cb = childrenQueue.pollLast();
-                        if (cb != null) {
-                            int s = solutions(cb,null);
-                            totalSolutions.addAndGet(s);
-                        }
+                         cb = childrenQueue.pollLast();
                     }
+                    if (cb != null) {
+                        int s = solutions(cb,null);
+                        totalSolutions.addAndGet(s);
+                    }
+                    
                 }
             }
         });
@@ -167,9 +170,7 @@ public class Master implements MessageUpcall{
          */
         
         while(!childrenQueue.isEmpty()){
-            synchronized(childrenQueue){
                 sendCube();
-            }
         }
 
         /*  Wait for busy workers.
