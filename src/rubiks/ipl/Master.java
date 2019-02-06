@@ -144,29 +144,14 @@ public class Master implements MessageUpcall{
         * synchronization over the childrenQueue is crucial at this point because
         * at the same time another threads pulls cubes and sends them to Workers. 
         */
-        Thread t1 = new Thread(new Runnable()
-        {
-            public void run()
-            {
-              synchronized(childrenQueue){
-                while(!childrenQueue.isEmpty())
+        
+        synchronized(childrenQueue){
+            while(!childrenQueue.isEmpty())
                 {
                     Cube cb = childrenQueue.pollLast();
                     int s = solutions(cb,null);
                     totalSolutions.addAndGet(s);
                 }
-              }
-            }
-        });
-        t1.start();
-
-        /*  Master Thread iterates over the global Queue and sends the data
-         *  until this queue to empty.
-         */
-        synchronized(childrenQueue){
-            while(!childrenQueue.isEmpty()){
-                sendCube();
-            }
         }
 
         /*  Wait for busy workers.
@@ -211,14 +196,36 @@ public class Master implements MessageUpcall{
          * In most cases this returns 0 and then
          * we expand two levels of children and run in parallel */
 
-        for (int i=0; i<3; i++){
+        for (int i=1; i<3; i++){
             cube.setBound(i);
+            System.out.print(" " + i);
             result =  solutions(cube, null);
             if (result > 0 ){
                 break;
             }
         }
 
+        /*  Master Thread iterates over the global Queue and sends the data
+         *  until this queue to empty.
+         */
+        Thread t1 = new Thread(new Runnable() 
+        {
+            public void run() 
+            {
+                synchronized(childrenQueue){
+                    while(!childrenQueue.isEmpty()){
+                        try {
+                            sendCube();
+                        } catch(Exception e){
+                            System.out.println("Runnable terminating with exception" + e);
+                        }
+                    }
+                }
+            }
+        });
+        t1.start();
+        
+        bound = 2;
         while (result == 0) {
             bound++;
             cube.setBound(bound);
@@ -231,6 +238,8 @@ public class Master implements MessageUpcall{
         System.out.println("Solving cube possible in " + result + " ways of "
                 + bound + " steps");
     }
+
+    
 
     /*  Same as sequential
      */
