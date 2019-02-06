@@ -23,6 +23,7 @@ public class Master implements MessageUpcall{
     // public static Ibis ibis;
 
     private static ArrayDeque<Cube> childrenQueue;
+    private static ArrayDeque<Cube> masterchildrenQueue;
     private static ArrayDeque<Worker> workerQueue;
     private static AtomicInteger totalSolutions;
     private static AtomicInteger busyWorkers;
@@ -32,6 +33,7 @@ public class Master implements MessageUpcall{
         cache = null;
         firstCube = null;
         childrenQueue = null;
+        masterchildrenQueue = null;
         totalSolutions = new AtomicInteger(0);
         busyWorkers = new AtomicInteger(0);
         myIbisId = parent.ibis.identifier();
@@ -89,21 +91,21 @@ public class Master implements MessageUpcall{
 
         Cube cb;
         int sols;
-        synchronized(childrenQueue){
-            synchronized(workerQueue){
-                for (Worker currentWorker : workerQueue) {
-                    if (currentWorker.getStatus().equals(Rubiks.WK_READY)){
-                        cb = childrenQueue.pollLast();
-                        if (cb != null) {
-                            sendCubeToWorker(cb, currentWorker.getSendPort());
-                            busyWorkers.incrementAndGet();
-                            currentWorker.setStatus(Rubiks.WK_BUSY);
-                        }
-                        return;
+
+        synchronized(workerQueue){
+            for (Worker currentWorker : workerQueue) {
+                if (currentWorker.getStatus().equals(Rubiks.WK_READY)){
+                    cb = childrenQueue.pollLast();
+                    if (cb != null) {
+                        sendCubeToWorker(cb, currentWorker.getSendPort());
+                        busyWorkers.incrementAndGet();
+                        currentWorker.setStatus(Rubiks.WK_BUSY);
                     }
+                    return;
                 }
             }
         }
+        
     }
 
     private  int solveAtBound (Cube cube, CubeCache cache) throws ConnectionFailedException, IOException {
@@ -112,6 +114,7 @@ public class Master implements MessageUpcall{
          *  For a given bound, the childrenqueue must be rest.
          */
         childrenQueue.clear();
+        masterchildrenQueue.clear();
 
         if(cube.isSolved()){
             return totalSolutions.incrementAndGet();
@@ -123,8 +126,11 @@ public class Master implements MessageUpcall{
 
         /*   Generate children of the initial cube and add them to the global queue.
          */
-        Cube[] children = cube.generateChildren(cache);
         int bound = cube.getBound();
+
+        Cube[] children = cube.generateChildren(cache);
+        int masterQueuesize = children.length * children.length * children.length / parent.ibis.registry().getPoolSize();
+        int idx = 0;
 
         /* Add children cubes to the childrenQueue
         *  Only three generations after the initial cube are added to the queue 
@@ -134,12 +140,17 @@ public class Master implements MessageUpcall{
             for (Cube grandChild : grandChildren){
                 Cube[] grandgrandChildren = grandChild.generateChildren(cache);
                 for (Cube grandgrandChild : grandgrandChildren){
-                    grandChild.setBound(bound);
-                    childrenQueue.addFirst(grandgrandChild);
+                    grandgrandChild.setBound(bound);
+                    if (idx < masterQueuesize){
+                        idx++;
+                        masterchildrenQueue.addFirst(grandgrandChild);
+                    } else {
+                        childrenQueue.addFirst(grandgrandChild);
                     }
                 }
+            }
         }
-
+        
         /* A new thread is used to start solving cubes from the childrenQueue
         * synchronization over the childrenQueue is crucial at this point because
         * at the same time another threads pulls cubes and sends them to Workers. 
@@ -148,14 +159,15 @@ public class Master implements MessageUpcall{
         {
             public void run()
             {
-              synchronized(childrenQueue){
-                while(!childrenQueue.isEmpty())
+                while(!masterchildrenQueue.isEmpty())
                 {
-                    Cube cb = childrenQueue.pollLast();
-                    int s = solutions(cb,null);
-                    totalSolutions.addAndGet(s);
+                    Cube cb = masterchildrenQueue.pollLast();
+                    if (cb!=null) {
+                        int s = solutions(cb, null);
+                        totalSolutions.addAndGet(s);
+                    }
                 }
-              }
+             
             }
         });
         t1.start();
@@ -163,11 +175,11 @@ public class Master implements MessageUpcall{
         /*  Master Thread iterates over the global Queue and sends the data
          *  until this queue to empty.
          */
-        synchronized(childrenQueue){
-            while(!childrenQueue.isEmpty()){
-                sendCube();
-            }
+        
+        while(!childrenQueue.isEmpty()){
+            sendCube();
         }
+        
 
         /*  Wait for busy workers.
          */
@@ -191,50 +203,22 @@ public class Master implements MessageUpcall{
                 this.notifyAll();
             }
         }
+        try {
+            t1.join();                 
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
         /*  Return the totalSolutions
          */
         return totalSolutions.get();
-    }
 
-    private void solve(Cube cube) throws IOException, ConnectionFailedException {
-
-        // Cache used for cube objects. Doing new cube() for every move
-        // overloads the garbage collector
-        CubeCache cache = new CubeCache(cube.getSize());
-
-        int bound = 0;
-        int result = 0;
-
-        System.out.print("Bound now:");
-
-        /* Solve sequentially with bound < 3
-         * In most cases this returns 0 and then
-         * we expand two levels of children and run in parallel */
-
-        for (int i=0; i<3; i++){
-            cube.setBound(i);
-            result =  solutions(cube, null);
-            if (result > 0 ){
-                break;
-            }
-        }
-
-        while (result == 0) {
-            bound++;
-            cube.setBound(bound);
-
-            System.out.print(" " + bound);
-            result = solveAtBound(cube, cache);
-        }
-
-        System.out.println();
-        System.out.println("Solving cube possible in " + result + " ways of "
-                + bound + " steps");
     }
 
     /*  Same as sequential
      */
     private static int solutions(Cube cube, CubeCache cache) {
+        
         if (cube.isSolved()) {
             return 1;
         }
@@ -253,6 +237,7 @@ public class Master implements MessageUpcall{
 
         for (Cube child : children) {
             // recursion step
+            child.setBound(cube.getBound());
             int childSolutions = solutions(child, cache);
             if (childSolutions > 0) {
                 result += childSolutions;
@@ -262,6 +247,44 @@ public class Master implements MessageUpcall{
         }
         return result;
     }
+
+    private void solve(Cube cube) throws IOException, ConnectionFailedException {
+
+        // Cache used for cube objects. Doing new cube() for every move
+        // overloads the garbage collector
+        CubeCache cache = new CubeCache(cube.getSize());
+
+        int bound = 0;
+        int result = 0;
+
+        System.out.print("Bound now:");
+
+        /* Solve sequentially with bound < 3
+         * In most cases this returns 0 and then
+         * we expand two levels of children and run in parallel */
+
+        for (int i=1; i<3; i++){
+            cube.setBound(i);
+            result =  solutions(cube, null);
+            if (result > 0 ){
+                break;
+            }
+        }
+
+        while (result == 0 && bound < 12) {
+            bound++;
+            cube.setBound(bound);
+
+            System.out.print(" " + bound);
+            result = solveAtBound(cube, cache);
+        }
+
+        System.out.println();
+        System.out.println("Solving cube possible in " + result + " ways of "
+                + bound + " steps");
+    }
+
+    
 
     public static void printUsage() {
         System.out.println("Rubiks Cube solver");
@@ -342,6 +365,7 @@ public class Master implements MessageUpcall{
         
         childrenQueue = new ArrayDeque<Cube>();
         workerQueue   = new ArrayDeque<Worker>();
+        masterchildrenQueue = new ArrayDeque<Cube>();
         initializeCube(args);
         
         // Create the receive port to handle the messages 
