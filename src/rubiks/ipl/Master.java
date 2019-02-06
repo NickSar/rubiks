@@ -152,8 +152,10 @@ public class Master implements MessageUpcall{
                     synchronized(childrenQueue){
                     {
                         Cube cb = childrenQueue.pollLast();
-                        int s = solutions(cb,null);
-                        totalSolutions.addAndGet(s);
+                        if (cb != null) {
+                            int s = solutions(cb,null);
+                            totalSolutions.addAndGet(s);
+                        }
                     }
                 }
             }
